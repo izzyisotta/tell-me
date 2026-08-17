@@ -118,7 +118,6 @@ footer{padding:48px 0 64px;border-top:2px solid var(--ink)}
       <p class="lead">One tap here, then follow the lines that appear.</p>
       <div class="status" id="status" aria-live="polite"></div>
       <div class="reveal on" id="reveal">
-        <button class="btn add" id="share" type="button" hidden>Send it straight to Shortcuts</button>
         <a class="btn add" id="dl" href="#" rel="noopener">Get the shortcut</a>
         <ol id="hint"></ol>
       </div>
@@ -170,7 +169,7 @@ footer{padding:48px 0 64px;border-top:2px solid var(--ink)}
 </main>
 <script>
 (function(){
-  const status=document.getElementById('status'), dl=document.getElementById('dl'), share=document.getElementById('share'), hint=document.getElementById('hint');
+  const status=document.getElementById('status'), dl=document.getElementById('dl'), hint=document.getElementById('hint');
   const b64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
   const li=t=>{const e=document.createElement('li');e.textContent=t;return e;};
   const set=(t,err)=>{status.className=err?'status err':'status';status.textContent=t;};
@@ -179,7 +178,7 @@ footer{padding:48px 0 64px;border-top:2px solid var(--ink)}
     try{ const r=await fetch('shortcut.json',{cache:'no-store'}); if(!r.ok) throw 0; p=await r.json(); }
     catch(e){ set('Couldn\u2019t load the shortcut. Check your signal and reload the page.',true); dl.onclick=ev=>{ev.preventDefault();ready();}; return; }
     while(hint.firstChild) hint.removeChild(hint.firstChild);
-    share.hidden=true; dl.onclick=null;
+    dl.onclick=null;
     if(p.type==='url'){
       dl.href=p.value; dl.removeAttribute('download'); dl.textContent='Add the shortcut';
       hint.append(li('Tap the button. Shortcuts opens (if you land on an Apple page instead, tap Get Shortcut).'), li('Tap Add Shortcut. Done, it is on your phone.'));
@@ -187,19 +186,7 @@ footer{padding:48px 0 64px;border-top:2px solid var(--ink)}
       const bytes=b64(p.value), name=p.name||'Debrief.shortcut';
       const blob=new Blob([bytes],{type:'application/octet-stream'});
       dl.href=URL.createObjectURL(blob); dl.setAttribute('download',name); dl.textContent='Download the shortcut';
-      let shared=false;
-      try{
-        const file=new File([bytes],name,{type:'application/octet-stream'});
-        if(navigator.canShare&&navigator.canShare({files:[file]})){
-          shared=true; share.hidden=false;
-          share.onclick=()=>navigator.share({files:[file],title:'Debrief'}).catch(()=>{});
-          dl.className='btn alt'; dl.textContent='Or download it instead';
-          hint.append(li('Tap the green button. A share sheet slides up: pick Shortcuts (swipe along the app row if you don\u2019t see it).'), li('Shortcuts opens. Type your first name, tap Add Shortcut. Done, it is on your phone.'), li('If Shortcuts isn\u2019t in the share sheet, use the second button: Download, then the arrow-in-a-circle in Safari\u2019s address bar (bottom of the screen), then tap Debrief.shortcut, then Add Shortcut.'));
-        }
-      }catch(e){}
-      if(!shared){
-        hint.append(li('Tap the button, then tap Download when Safari asks.'), li('A little arrow-in-a-circle appears in Safari\u2019s address bar (bottom of the screen on most iPhones). Tap it, then tap Debrief.shortcut.'), li('Shortcuts opens. Type your first name, tap Add Shortcut. Done, it is on your phone. (If Shortcuts doesn\u2019t open, find the file in the Files app under Downloads and tap it there.)'));
-      }
+      hint.append(li('Tap the button, then tap Download when Safari asks.'), li('A little arrow-in-a-circle appears in Safari\u2019s address bar (bottom of the screen on most iPhones). Tap it, then tap Debrief.shortcut.'), li('Shortcuts opens. Type your first name, tap Add Shortcut. Done, it is on your phone. (If Shortcuts doesn\u2019t open, find the file in the Files app under Downloads and tap it there.)'));
     }
   }
   ready();
