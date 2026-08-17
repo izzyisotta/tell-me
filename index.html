@@ -110,27 +110,20 @@ footer{padding:48px 0 64px;border-top:2px solid var(--ink)}
   <section id="how">
     <div class="eyebrow">on iphone · one minute, once</div>
     <h2>Get the shortcut. Then it's one tap.</h2>
-    <p class="big">It's an iPhone shortcut called <b>Debrief</b>. It lives right here on this page, behind a password, so it only reaches the people I've asked. The password is in my message.</p>
+    <p class="big">It's an iPhone shortcut called <b>Debrief</b>. It lives right here on this page.</p>
     <p class="small" style="margin-top:14px"><b>If this opened inside WhatsApp</b>, tap the Safari icon (bottom right) to open it in Safari first, or the download won't land.</p>
     <div class="gate" id="gate">
-      <h3>Unlock the shortcut</h3>
-      <p class="lead">Type the password from my message. Lowercase, one word, no spaces.</p>
-      <form id="form" autocomplete="off">
-        <label for="word">password</label>
-        <div class="row">
-          <input id="word" name="word" type="text" inputmode="text" autocapitalize="none" spellcheck="false" placeholder="type it here" autocorrect="off" enterkeyhint="go" aria-describedby="status">
-          <button class="btn" type="submit">Unlock</button>
-        </div>
-      </form>
+      <h3>Get the shortcut</h3>
+      <p class="lead">One tap here, then follow the lines that appear.</p>
       <div class="status" id="status" aria-live="polite"></div>
-      <div class="reveal" id="reveal">
+      <div class="reveal on" id="reveal">
         <a class="btn add" id="dl" href="#" rel="noopener">Get the shortcut</a>
         <button class="btn alt" id="share" type="button" hidden>Or send it straight to Shortcuts</button>
         <ol id="hint"></ol>
       </div>
     </div>
     <ol class="steps">
-      <li><div><b>Add it.</b> Unlock above and follow the lines that appear under the green button. It ends with you tapping <b>Add Shortcut</b>. Done once.</div></li>
+      <li><div><b>Add it.</b> Tap the green button above and follow the lines under it. It ends with you tapping <b>Add Shortcut</b>. Done once.</div></li>
       <li><div><b>Put it somewhere you'll hit it.</b> Action Button (Settings → Action Button → Shortcut → Debrief) if you have one; or Back Tap (Settings → Accessibility → Touch → Back Tap → Debrief); or just say "Hey Siri, Debrief", nothing to set up.</div></li>
       <li><div><b>Tap. Talk. Tap to stop.</b> The first time it'll ask about the microphone and about sending to me: tap <b>Always Allow</b> to both or it nags every time. When it's worked you get a little "Sent to Izzy" notification. It also keeps a copy in your Files (iCloud Drive → Shortcuts → Debrief), so if it grumbles about no signal on the Tube the recording's still there: WhatsApp it to me when you're up top.</div></li>
     </ol>
@@ -176,33 +169,16 @@ footer{padding:48px 0 64px;border-top:2px solid var(--ink)}
 </main>
 <script>
 (function(){
-  const form=document.getElementById('form'), word=document.getElementById('word'), status=document.getElementById('status'),
-        reveal=document.getElementById('reveal'), dl=document.getElementById('dl'), share=document.getElementById('share'), hint=document.getElementById('hint');
-  let sealed=null;
+  const status=document.getElementById('status'), dl=document.getElementById('dl'), share=document.getElementById('share'), hint=document.getElementById('hint');
   const b64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
   const li=t=>{const e=document.createElement('li');e.textContent=t;return e;};
   const set=(t,err)=>{status.className=err?'status err':'status';status.textContent=t;};
-  async function load(){ if(sealed) return sealed; const r=await fetch('sealed.json',{cache:'no-store'}); if(!r.ok) throw new Error('fetch'); sealed=await r.json(); return sealed; }
-  async function open(pw){
-    const enc=new TextEncoder();
-    const km=await crypto.subtle.importKey('raw',enc.encode(pw.trim().toLowerCase()),'PBKDF2',false,['deriveKey']);
-    const key=await crypto.subtle.deriveKey({name:'PBKDF2',salt:b64(sealed.salt),iterations:sealed.iter,hash:'SHA-256'},km,{name:'AES-GCM',length:256},false,['decrypt']);
-    const pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:b64(sealed.iv)},key,b64(sealed.ct));
-    return JSON.parse(new TextDecoder().decode(pt));
-  }
-  form.addEventListener('submit',async ev=>{
-    ev.preventDefault(); set('');
-    if(!window.isSecureContext||!(window.crypto&&crypto.subtle)){ set('This needs a secure connection. Open https://izzyisotta.github.io/tell-me/ in Safari.',true); return; }
-    if(!word.value.trim()){ set('Type the password first.'); return; }
-    set('Checking…');
-    try{ await load(); }catch(e){ set('Couldn\u2019t load the shortcut. Check your signal and tap Unlock again.',true); return; }
-    if(!sealed.ct){ set('The shortcut is not up yet. Izzy is on it.'); return; }
+  async function ready(){
     let p;
-    try{ p=await open(word.value); }
-    catch(e){ if(e&&e.name==='OperationError'){ set('Not it. Check the password in my message (lowercase, one word).',true); } else { set('Something odd with your browser. Try opening this page in Safari.',true); } return; }
-    set('That\u2019s the one.');
+    try{ const r=await fetch('shortcut.json',{cache:'no-store'}); if(!r.ok) throw 0; p=await r.json(); }
+    catch(e){ set('Couldn\u2019t load the shortcut. Check your signal and reload the page.',true); dl.onclick=ev=>{ev.preventDefault();ready();}; return; }
     while(hint.firstChild) hint.removeChild(hint.firstChild);
-    share.hidden=true;
+    share.hidden=true; dl.onclick=null;
     if(p.type==='url'){
       dl.href=p.value; dl.removeAttribute('download'); dl.textContent='Add the shortcut';
       hint.append(li('Tap the button. Shortcuts opens (if you land on an Apple page instead, tap Get Shortcut).'), li('Tap Add Shortcut. Done, it is on your phone.'));
@@ -220,10 +196,11 @@ footer{padding:48px 0 64px;border-top:2px solid var(--ink)}
         }
       }catch(e){}
     }
-    reveal.classList.add('on'); word.blur(); dl.focus();
-  });
+  }
+  ready();
 })();
 </script>
+<noscript><p style="padding:20px;font-family:sans-serif">This page needs JavaScript on to hand you the shortcut. Turn it on, or WhatsApp me and I'll send it directly.</p></noscript>
 <noscript><p style="padding:20px;font-family:sans-serif">This page needs JavaScript on to unlock the shortcut. Turn it on, or WhatsApp me and I'll send the shortcut directly.</p></noscript>
 </body>
 </html>
