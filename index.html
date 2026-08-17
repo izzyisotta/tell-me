@@ -5,12 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Tell me about it</title>
+<meta property="og:title" content="Tell me about it">
+<meta property="og:description" content="A favour from Izzy: five to ten voice notes over the next few weeks.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,100,400;12..96,100,800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --butter:#FFF1BF; --butter-deep:#F7DE84; --ink:#1B1740; --coral:#FF5238; --mint:#8FE6C8; --paper:#FFFBEC;
+  --butter:#FFF1BF; --butter-deep:#F7DE84; --ink:#1B1740; --coral:#E8421F; --mint:#8FE6C8; --paper:#FFFBEC;
   --display:"Bricolage Grotesque",system-ui,sans-serif; --body:"Instrument Sans",system-ui,sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -20,13 +22,12 @@ a{color:inherit}
 .wrap{max-width:720px;margin:0 auto;padding:0 clamp(20px,5vw,40px)}
 .hero{padding:clamp(56px,12vh,120px) 0 clamp(36px,6vw,56px)}
 .rec{display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:28px}
-.dot{width:14px;height:14px;border-radius:50%;background:var(--coral);box-shadow:0 0 0 0 rgba(255,82,56,.55);animation:pulse 1.6s ease-out infinite}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,82,56,.55)}100%{box-shadow:0 0 0 22px rgba(255,82,56,0)}}
+.dot{width:14px;height:14px;border-radius:50%;background:var(--coral);box-shadow:0 0 0 0 rgba(232,66,31,.55);animation:pulse 1.6s ease-out infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(232,66,31,.55)}100%{box-shadow:0 0 0 22px rgba(232,66,31,0)}}
 h1{font-family:var(--display);font-weight:800;font-variation-settings:"wdth" 100,"opsz" 96;font-size:clamp(56px,13vw,132px);line-height:.9;letter-spacing:-.03em;text-wrap:balance}
 h1 em{font-style:normal;color:var(--coral)}
 .sub{margin-top:28px;font-size:clamp(20px,2.6vw,26px);max-width:34ch;text-wrap:pretty}
 .sub b{font-weight:600}
-.scroll{position:absolute;bottom:22px;left:0;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.65}
 .wave{display:flex;align-items:center;gap:4px;height:44px;margin:34px 0 0}
 .wave i{display:block;width:5px;border-radius:3px;background:var(--ink);height:40px;animation:bar 1.3s ease-in-out infinite;transform-origin:center}
 @keyframes bar{0%,100%{transform:scaleY(.25)}50%{transform:scaleY(1)}}
@@ -41,9 +42,14 @@ ul.list li{padding:14px 18px;background:var(--paper);border:2px solid var(--ink)
 ul.list li b{font-weight:600}
 .bubble{position:relative;background:var(--paper);border:2px solid var(--ink);border-radius:26px 26px 26px 6px;padding:26px 28px;font-size:clamp(18px,2.1vw,22px);line-height:1.45;box-shadow:6px 6px 0 var(--ink);margin-top:26px}
 .bubble .meta{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;opacity:.7;margin-bottom:12px;display:flex;justify-content:space-between}
-.bubble q{quotes:"\201C" "\201D"}
 mark{background:var(--butter-deep);color:inherit;padding:0 .2em;border-radius:4px}
 .legend{font-size:15px;margin-top:14px;opacity:.85}
+.bubble details summary{cursor:pointer;font-weight:600;font-size:16px;list-style:none;display:inline-flex;align-items:center;gap:8px}
+.bubble details summary::-webkit-details-marker{display:none}
+.bubble details summary::before{content:"▸";color:var(--coral)}
+.bubble details[open] summary::before{content:"▾"}
+.bubble details[open] summary{margin-bottom:12px}
+.bubble details p+p{margin-top:.9em}
 ol.steps{list-style:none;counter-reset:s;margin-top:8px}
 ol.steps li{counter-increment:s;display:grid;grid-template-columns:52px 1fr;gap:16px;padding:20px 0;border-bottom:1.5px dashed rgba(27,23,64,.35);align-items:start}
 ol.steps li::before{content:counter(s);font-family:var(--display);font-weight:800;font-size:38px;line-height:1;color:var(--coral)}
@@ -56,6 +62,7 @@ ol.steps b{font-weight:600}
 .reveal ol li+li{margin-top:6px}
 .gate label{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px;opacity:.8}
 .row{display:flex;gap:10px;flex-wrap:wrap}
+.row .btn{flex:1 1 auto}
 .gate input{flex:1 1 200px;font:500 20px var(--body);padding:16px 18px;border-radius:14px;border:2px solid var(--butter);background:transparent;color:var(--butter);outline:none;min-width:0}
 .gate input:focus-visible{box-shadow:0 0 0 4px rgba(255,241,191,.35)}
 .gate input::placeholder{color:rgba(255,241,191,.5)}
@@ -63,7 +70,8 @@ ol.steps b{font-weight:600}
 .btn:hover{transform:translateY(-1px)}
 .btn:active{transform:translateY(1px)}
 .btn:focus-visible{outline:3px solid var(--butter);outline-offset:3px}
-.btn.add{display:inline-flex;align-items:center;gap:12px;font-size:22px;padding:20px 26px;text-decoration:none;background:var(--mint);border-color:var(--mint);color:var(--ink)}
+.btn.add{display:flex;width:100%;justify-content:center;align-items:center;gap:12px;font-size:21px;padding:20px 22px;text-decoration:none;background:var(--mint);border-color:var(--mint);color:var(--ink);text-align:center}
+.btn.alt{display:flex;width:100%;justify-content:center;margin-top:10px;font-size:17px;padding:14px 18px;background:transparent;border-color:var(--butter);color:var(--butter)}
 .status{margin-top:14px;font-size:16px;min-height:1.4em}
 .status.err{color:#FFB09E}
 .reveal{display:none;margin-top:8px}
@@ -75,13 +83,13 @@ ol.steps b{font-weight:600}
 footer{padding:48px 0 64px;border-top:2px solid var(--ink)}
 .sig{font-family:var(--display);font-weight:800;font-size:clamp(34px,6vw,54px);letter-spacing:-.02em;line-height:1}
 .sig span{color:var(--coral)}
-@media (prefers-reduced-motion:reduce){.dot,.wave i{animation:none}.wave i{transform:scaleY(.6)}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.dot,.wave i{animation:none}.wave i{transform:scaleY(.6)}}
 </style>
 </head>
 <body>
 <main class="wrap">
   <header class="hero">
-    <div class="rec"><span class="dot" aria-hidden="true"></span>recording · a favour, from Izzy</div>
+    <div class="rec"><span class="dot" aria-hidden="true"></span>a favour from Izzy · not recording you, promise</div>
     <h1>Tell me <em>about it.</em></h1>
     <p class="sub">The thing I'm building needs to learn how people <b>actually</b> talk about their days. Voice-note me yours: a tap, then talk, whenever you've done a thing.</p>
     <div class="wave" aria-hidden="true">
@@ -91,50 +99,62 @@ footer{padding:48px 0 64px;border-top:2px solid var(--ink)}
 
   <section id="ask">
     <div class="eyebrow">the ask</div>
-    <h2>Five to ten voice notes over the next few weeks.</h2>
+    <h2>Five to ten voice notes over the next few weeks. One whenever you've done a thing.</h2>
     <ul class="list">
-      <li><b>A thing</b> is a meal, a pub, a film, a gig, a walk, a trip, a party, or a person you saw. Anything that happened. Tell me about it the way you'd tell a mate.</li>
+      <li><b>A thing</b> is a meal, a pub, a film, a play, a gig, a walk, a trip, a party, or a person you saw. Anything that happened. Tell me about it the way you'd tell a mate.</li>
       <li><b>Say the specifics.</b> Who was there, where you were, what you thought, whether you'd go back. Names are welcome, that's the whole point. Go easy on other people's secrets, though: if it's something they'd mind being written down by a stranger, leave it out.</li>
-      <li><b>Ramble.</b> Thirty seconds is fine, three minutes is lovely. No polish, no structure, no do-overs. One is still a gift.</li>
+      <li><b>Ramble.</b> Thirty seconds is fine, three minutes is lovely. No polish, no structure, no do-overs. Even one is a gift.</li>
     </ul>
   </section>
 
   <section id="example">
-    <div class="eyebrow">what one sounds like · a real one of mine</div>
+    <div class="eyebrow">what one sounds like · two real ones of mine</div>
     <h2>Like this, but in your voice.</h2>
-    <p class="small">Friday night, 11.52pm, recorded on the way home. Note the total absence of polish.</p>
+    <p class="small">Transcribed word for word, ums included, on purpose. These two are mine and I chose to put them here; yours never go anywhere like this.</p>
     <figure class="bubble">
-      <div class="meta"><span>voice note · 1:36</span><span>fri 23:52</span></div>
-      <audio controls preload="metadata" src="audio/debrief-example.m4a" style="width:100%;margin-bottom:16px"></audio>
-      <p>Just went to <mark>Osteria Vibrato</mark> with <mark>Sophie</mark>. It was pretty good, I would say like <mark>10 out of 10 vibe</mark>, but like <mark>6 or 7 out of 10 food</mark>. The food was good, but the starters were expensive and small, like four small prawns for like 19 quid or something. And they were really small. And they were just prawns. We had a breaded lamb chop, that was quite good for a starter as well. And then for main we had a pasta with tuna and like, I forgot the name, but it was like fish eggy things. We just shared that. The vibe was really cool and the service was really nice, they were really friendly. And then we went to a bar next door called <mark>Vault</mark>, which was quite cool, it's like underground, there's a whisky shop on top and the bottom is a bar. Sophie swapped cocktails with me because I didn't like mine so much, and then she liked mine, which was nice of her. The bar I would give like <mark>six out of ten</mark>. Kind of vibey. Yeah.</p>
+      <div class="meta"><span>voice note · 3:00</span><span>sunday, 12.32pm</span></div>
+      <audio controls preload="metadata" src="audio/debrief-long.m4a" style="width:100%;margin-bottom:14px"></audio>
+      <details>
+        <summary>Read it, ums and all</summary>
+        <p>So I just had a really nice afternoon and evening. Um, I met Hala at, um, at like 4pm and we went to Corner Shop 180, which was nice, as always. Um, I had a, an iced coffee and she had a juice. Um, I think Corner Shop 180, I'm sure I've rated it before, but I think it gets like, um, pretty solid nine out of ten, to be honest, for like a cafe. It's good vibes and good food. Um, and then, yeah, we had a nice chat. She's been like, um, campervanning around the UK on her, like, on her time off with George. Um, and she is about to go to her sister's wedding, in which she's doing a lot of the organisation. Um, so that's cool. Um, yeah, and I think she's supposed to start again at OC&amp;C in January. Um, so supposedly the same time. But let's see.</p>
+        <p>Um, and then after that, I went to, um, dinner at Toklas, which I've been wanting to go to for ages and it was amazing. I loved it. It's such good vibes. Super nice outside. Like, open to, the inside is open to the outside. It's really spacious. Like, um, very, very nice. Great food. I went with Simona. Uh, it was super nice to catch up, actually. Um, Eve and Natasha were also meant to go, but they couldn't come. Um, but yeah, it was really, really nice. We had such a good time. Um, and then I, oh yeah, Simona's all same job, same, um, flat and everything. So, no major life updates, but it sounds like she's having fun, having a good time, going to Amsterdam on a lot of weekends, uh, which is cool.</p>
+        <p>And then, I went, oh yeah, and then Boomy messaged me being like, do you want to go, do you want to do something? So I was like, yeah. Um, and so we were going to meet up in Shoreditch, but then, uh, some people from INSEAD were going to the pub in Mayfair. Um, and so I was like, come along to that. And so she did. And so we went to, um, oh, what was it called? Um, I forgot the name of the pub. Um, but anyway, it was in Mayfair and it was nice. We saw Addie and, um, Fernando and a bunch of others, which was fun. And then we actually ended up going to Mercato Mayfair, which was nice as always. Just like an end of the night thing to get dumplings and stuff. We actually left at like midnight or like 12.30. It was kind of fun. Um, but it was nice to see everyone. I would say the pub, what was the name? Um, it was called, what was it called? Anyway, I don't know. Mercato Mayfair gets like pretty standard, um, like seven or eight out of 10. Oh, it was the Audley. It was called the Audley. That was like six out of 10. Pretty standard pub. Um, that was a fun evening. Um, yeah, that's the update.</p>
+      </details>
     </figure>
-    <p class="legend">The <mark>highlighted bits</mark> are what I'm after: people, places, verdicts. You don't have to try to say them. You will anyway.</p>
+    <p class="legend" style="margin-top:22px"><b>And this counts too.</b> Seventeen seconds, two things, done.</p>
+    <figure class="bubble" style="margin-top:12px">
+      <div class="meta"><span>voice note · 0:17</span><span>sunday, 1.41pm</span></div>
+      <audio controls preload="metadata" src="audio/debrief-short.m4a" style="width:100%;margin-bottom:16px"></audio>
+      <p>I just went to see Pride at the National. Um, it was epic as expected. Absolutely loved it. So, so, so good. Uh, 10 out of 10. Also went to see, no, sorry, also went to Cafe Clement with Mum and Dad before, which was good. Good, not great. I would say 7 out of 10.</p>
+    </figure>
   </section>
 
   <section id="how">
     <div class="eyebrow">on iphone · one minute, once</div>
     <h2>Get the shortcut. Then it's one tap.</h2>
-    <p class="big">It's an iPhone shortcut called <b>Debrief</b>. It lives right here on this page, behind the word I sent you.</p>
+    <p class="big">It's an iPhone shortcut called <b>Debrief</b>. It lives right here on this page, behind a password, so it only reaches the people I've asked. The password is in my message.</p>
+    <p class="small" style="margin-top:-6px"><b>If this opened inside WhatsApp</b>, tap the Safari icon (bottom right) to open it in Safari first, or the download won't land.</p>
     <div class="gate" id="gate">
       <h3>Unlock the shortcut</h3>
-      <p class="lead">Type the word from my message. Lowercase, one word.</p>
+      <p class="lead">Type the password from my message. Lowercase, one word, no spaces.</p>
       <form id="form" autocomplete="off">
-        <label for="word">the word</label>
+        <label for="word">password</label>
         <div class="row">
-          <input id="word" name="word" type="text" inputmode="text" autocapitalize="none" spellcheck="false" placeholder="type it here" aria-describedby="status">
+          <input id="word" name="word" type="text" inputmode="text" autocapitalize="none" spellcheck="false" placeholder="type it here" autocorrect="off" enterkeyhint="go" aria-describedby="status">
           <button class="btn" type="submit">Unlock</button>
         </div>
       </form>
       <div class="status" id="status" aria-live="polite"></div>
       <div class="reveal" id="reveal">
-        <a class="btn add" id="dl" href="#" rel="noopener">＋ Get the shortcut</a>
+        <a class="btn add" id="dl" href="#" rel="noopener">Get the shortcut</a>
+        <button class="btn alt" id="share" type="button" hidden>Or send it straight to Shortcuts</button>
         <ol id="hint"></ol>
       </div>
     </div>
     <ol class="steps">
-      <li><div><b>Add it.</b> Unlock above, tap the green button, and when Shortcuts opens tap <b>Add Shortcut</b>. That's the install, done once.</div></li>
-      <li><div><b>Put it somewhere you'll hit it.</b> Action Button (Settings → Action Button → Shortcut → Debrief) if you have one, or in the Shortcuts app hold Debrief and tap Add to Home Screen.</div></li>
-      <li><div><b>Tap. Talk. Tap to stop.</b> It sends itself to me and keeps a copy in your own Files (iCloud Drive → Shortcuts → Debrief), so nothing is lost if you're on the Tube.</div></li>
+      <li><div><b>Add it.</b> Unlock above and follow the lines that appear under the green button. It ends with you tapping <b>Add Shortcut</b>. Done once.</div></li>
+      <li><div><b>Put it somewhere you'll hit it.</b> Action Button (Settings → Action Button → Shortcut → Debrief) if you have one; or Back Tap (Settings → Accessibility → Touch → Back Tap → Debrief); or just say "Hey Siri, Debrief", nothing to set up.</div></li>
+      <li><div><b>Tap. Talk. Tap to stop.</b> The first time it'll ask about the microphone and about sending to me: tap <b>Always Allow</b> to both or it nags every time. When it's worked you get a little "Sent to Izzy" notification. It also keeps a copy in your Files (iCloud Drive → Shortcuts → Debrief), so if it grumbles about no signal on the Tube the recording's still there: WhatsApp it to me when you're up top.</div></li>
     </ol>
     <p class="small" style="margin-top:8px"><b>Not on iPhone?</b> Then it's even simpler: WhatsApp me the voice notes. You know where I am.</p>
   </section>
@@ -143,24 +163,26 @@ footer{padding:48px 0 64px;border-top:2px solid var(--ink)}
     <div class="eyebrow">the small print, which is short</div>
     <h2>Where your voice goes.</h2>
     <div class="fine">
-      <p>Straight to a private store only I can get into. I'm the only person who listens. Each note is transcribed and run through AI models to teach the thing I'm building; that is the entire use. The two services that do that are under contracts that forbid them training on anything I send.</p>
-      <p>Names get swapped for made-up ones in anything I keep or write up. Nothing is ever published, posted, or played to anyone.</p>
+      <p>Straight to a private store only I can get into. I'm the only person who listens. Each note is transcribed and run through AI models to test the thing I'm building; that is the entire use. The two services that do that are under contracts that forbid them training on anything I send.</p>
+      <p>Names get swapped for made-up ones in anything I write up or show anyone. Nothing is ever published, posted, or played to anyone.</p>
       <p>Say the word and I delete yours, same day. Same goes if someone you mentioned wants out. No questions and no sulking.</p>
     </div>
   </section>
 
   <footer>
     <p class="sig">Thank you. <span>Izzy x</span></p>
-    <p class="small" style="margin-top:14px">Questions, worries, or you just want to talk about the prawns: message me.</p>
+    <p class="small" style="margin-top:14px">Questions or worries: message me.</p>
   </footer>
 </main>
 <script>
-(async function(){
+(function(){
   const form=document.getElementById('form'), word=document.getElementById('word'), status=document.getElementById('status'),
-        reveal=document.getElementById('reveal'), dl=document.getElementById('dl'), hint=document.getElementById('hint');
+        reveal=document.getElementById('reveal'), dl=document.getElementById('dl'), share=document.getElementById('share'), hint=document.getElementById('hint');
   let sealed=null;
-  try{ sealed=await (await fetch('sealed.json',{cache:'no-store'})).json(); }catch(e){}
   const b64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+  const li=t=>{const e=document.createElement('li');e.textContent=t;return e;};
+  const set=(t,err)=>{status.className=err?'status err':'status';status.textContent=t;};
+  async function load(){ if(sealed) return sealed; const r=await fetch('sealed.json',{cache:'no-store'}); if(!r.ok) throw new Error('fetch'); sealed=await r.json(); return sealed; }
   async function open(pw){
     const enc=new TextEncoder();
     const km=await crypto.subtle.importKey('raw',enc.encode(pw.trim().toLowerCase()),'PBKDF2',false,['deriveKey']);
@@ -169,27 +191,39 @@ footer{padding:48px 0 64px;border-top:2px solid var(--ink)}
     return JSON.parse(new TextDecoder().decode(pt));
   }
   form.addEventListener('submit',async ev=>{
-    ev.preventDefault(); status.className='status'; status.textContent='';
-    if(!sealed||!sealed.ct){ status.textContent='The shortcut link is not up yet. Izzy is on it.'; return; }
-    if(!word.value.trim()){ status.textContent='Type the word first.'; return; }
-    status.textContent='Checking…';
-    try{
-      const p=await open(word.value);
-      status.textContent='That’s the one.';
-      const li=t=>{const e=document.createElement('li');e.textContent=t;return e;};
-      hint.replaceChildren();
-      if(p.type==='url'){
-        dl.href=p.value; dl.removeAttribute('download'); dl.textContent='＋ Add the shortcut';
-        hint.append(li('Tap the button. Your phone opens the Shortcuts app.'), li('Tap Add Shortcut. Done, it is on your phone.'));
-      } else {
-        const blob=new Blob([b64(p.value)],{type:'application/octet-stream'});
-        dl.href=URL.createObjectURL(blob); dl.setAttribute('download',p.name||'Debrief.shortcut'); dl.textContent='⬇ Download the shortcut';
-        hint.append(li('Tap the button. Safari downloads a small file (tap Download if it asks).'), li('Tap the Downloads arrow at the top of Safari, then tap the file.'), li('Shortcuts opens. Tap Add Shortcut. Done, it is on your phone.'));
-      }
-      reveal.classList.add('on'); dl.focus();
-    }catch(e){ status.className='status err'; status.textContent='Not it. Check the word in my message (lowercase, one word).'; }
+    ev.preventDefault(); set('');
+    if(!window.isSecureContext||!(window.crypto&&crypto.subtle)){ set('This needs a secure connection. Open https://izzyisotta.github.io/tell-me/ in Safari.',true); return; }
+    if(!word.value.trim()){ set('Type the password first.'); return; }
+    set('Checking…');
+    try{ await load(); }catch(e){ set('Couldn\u2019t load the shortcut. Check your signal and tap Unlock again.',true); return; }
+    if(!sealed.ct){ set('The shortcut is not up yet. Izzy is on it.'); return; }
+    let p;
+    try{ p=await open(word.value); }
+    catch(e){ if(e&&e.name==='OperationError'){ set('Not it. Check the password in my message (lowercase, one word).',true); } else { set('Something odd with your browser. Try opening this page in Safari.',true); } return; }
+    set('That\u2019s the one.');
+    while(hint.firstChild) hint.removeChild(hint.firstChild);
+    share.hidden=true;
+    if(p.type==='url'){
+      dl.href=p.value; dl.removeAttribute('download'); dl.textContent='Add the shortcut';
+      hint.append(li('Tap the button. Shortcuts opens (if you land on an Apple page instead, tap Get Shortcut).'), li('Tap Add Shortcut. Done, it is on your phone.'));
+    } else {
+      const bytes=b64(p.value), name=p.name||'Debrief.shortcut';
+      const blob=new Blob([bytes],{type:'application/octet-stream'});
+      dl.href=URL.createObjectURL(blob); dl.setAttribute('download',name); dl.textContent='Download the shortcut';
+      hint.append(li('Tap the button, then tap Download when Safari asks.'), li('A little arrow-in-a-circle appears in Safari\u2019s address bar (bottom of the screen on most iPhones). Tap it, then tap Debrief.shortcut.'), li('Shortcuts opens. Tap Add Shortcut. Done, it is on your phone. (If Shortcuts doesn\u2019t open, find the file in the Files app under Downloads and tap it there.)'));
+      try{
+        const file=new File([bytes],name,{type:'application/octet-stream'});
+        if(navigator.canShare&&navigator.canShare({files:[file]})){
+          share.hidden=false;
+          share.onclick=()=>navigator.share({files:[file],title:'Debrief'}).catch(()=>{});
+          hint.append(li('Or tap the second button and pick Shortcuts from the share sheet, which skips the download.'));
+        }
+      }catch(e){}
+    }
+    reveal.classList.add('on'); word.blur(); dl.focus();
   });
 })();
 </script>
+<noscript><p style="padding:20px;font-family:sans-serif">This page needs JavaScript on to unlock the shortcut. Turn it on, or WhatsApp me and I'll send the shortcut directly.</p></noscript>
 </body>
 </html>

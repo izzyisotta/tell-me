@@ -1,6 +1,6 @@
 // Seal the shortcut (an iCloud link, or the signed .shortcut file itself) behind a codeword.
 // Usage:  node seal.mjs <codeword> --url "https://www.icloud.com/shortcuts/..."
-//         node seal.mjs <codeword> --file "private/Tell Isabella.shortcut"
+//         node seal.mjs <codeword> --file "private/Debrief.shortcut"
 // Writes sealed.json next to index.html. The page decrypts it in the browser with WebCrypto
 // (PBKDF2-SHA256 -> AES-GCM-256), so the public repo never carries the link or the file in clear.
 import { readFileSync, writeFileSync } from 'node:fs';
