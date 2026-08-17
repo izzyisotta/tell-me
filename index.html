@@ -112,7 +112,7 @@ footer{padding:48px 0 64px;border-top:2px solid var(--ink)}
     <div class="eyebrow">on iphone · one minute, once</div>
     <h2>Get the shortcut. Then it's one tap.</h2>
     <p class="big">It's an iPhone shortcut called <b>Debrief</b>, and it lives right here on this page. <b>Do this bit on your iPhone</b>: if you're reading on a laptop, open this page on your phone first, because the shortcut installs there.</p>
-    <p class="small" style="margin-top:14px"><b>If this opened inside WhatsApp</b>, tap the Safari icon (bottom right) to open it in Safari first, or the download won't land.</p>
+    <p class="small" style="margin-top:14px"><b>If this opened inside WhatsApp</b> and the button does nothing, tap the Safari icon (bottom right) to open the page in Safari and try again.</p>
     <div class="gate" id="gate">
       <h3>Get the shortcut</h3>
       <p class="lead">One tap here, then follow the lines that appear.</p>
@@ -181,7 +181,7 @@ footer{padding:48px 0 64px;border-top:2px solid var(--ink)}
     dl.onclick=null;
     if(p.type==='url'){
       dl.href=p.value; dl.removeAttribute('download'); dl.textContent='Add the shortcut';
-      hint.append(li('Tap the button. Shortcuts opens (if you land on an Apple page instead, tap Get Shortcut).'), li('Tap Add Shortcut. Done, it is on your phone.'));
+      hint.append(li('Tap the button. Shortcuts opens (if you land on an Apple page instead, tap Get Shortcut).'), li('Type your first name in the box it shows, then tap Add Shortcut. Done, it is on your phone.'));
     } else {
       const bytes=b64(p.value), name=p.name||'Debrief.shortcut';
       const blob=new Blob([bytes],{type:'application/octet-stream'});
